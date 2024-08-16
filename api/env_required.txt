@@ -1,0 +1,16 @@
+# Estas son las variables de entorno que se debe configurar en el proyecto para que este funcione correctamente
+# Cree un archivo .env y escriba ahí las variables de entorno
+
+# ---- CREDENCIALES DE LA BASE DE DATOS ----
+# DB_NAME = Nombre de la base de datos
+# DB_USER = Nombre del usuario de la base de datos
+# DB_PASS = Contraseña de la base de datos
+# DB_HOST = IP o dominio donde se encuentra alojada la base de datos
+DB_NAME
+DB_USER
+DB_PASS
+DB_HOST
+
+# ---- CLAVE SECRETA ----
+# SECRET_KEY = Cadena de texto alfanumérica para encriptar las contraseñas de los usuarios
+SECRET_KEY

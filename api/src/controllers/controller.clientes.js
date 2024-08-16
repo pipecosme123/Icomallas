@@ -22,7 +22,7 @@ export const createCliente = async (req, res) => {
 
 export const consultarClientes = async (req, res) => {
   try {
-    const clients = await Cliente.findAll({ where: { usuarioID: req.user.id } });
+    const clients = await Cliente.findAll({ where: { usuarioID: req.user.id }, order: [['id', 'ASC']] });
     res.json(clients);
   } catch (err) {
     res.status(500).send('Error al consultar los clientes');
