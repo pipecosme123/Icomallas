@@ -13,8 +13,13 @@ export default {
       console.log(data);
       axios
         .post("/registrar", data)
-        .then((data) => console.log(data))
-        .catch((data) => console.log(data))
+        .then((data) => {
+          alert("Usuario creado correctamente");
+          this.$router.push(link.LOGIN);
+        })
+        .catch((err) => {
+          alert(err.response.data);
+        })
     },
   },
 };
@@ -26,78 +31,46 @@ export default {
       <div class="col-md-6 card p-5">
         <h1 class="text-center mb-4">Registrar Usuario</h1>
 
-        <FormKit
-          type="form"
-          @submit="submitForm"
-          :actions="false"
-          class="needs-validation"
-          novalidate
-        >
+        <FormKit type="form" @submit="submitForm" :actions="false" class="needs-validation">
           <div class="mb-3">
             <label for="nombre" class="form-label">Nombre de usuario</label>
-            <FormKit
-              type="text"
-              name="nombre"
-              validation="required"
-              placeholder="Nombre"
-              :classes="{
+            <FormKit type="text" name="nombre" placeholder="Nombre" validation="required" validation-visibility="submit"
+              :validation-messages="{
+                required: 'Este campo es obligatório.',
+              }" :classes="{
                 input: 'form-control',
                 outer: 'mb-3',
                 label: 'form-label',
                 message: 'form-text text-danger',
-              }"
-            />
+              }" />
           </div>
 
           <div class="mb-3">
             <label for="email" class="form-label">Correo electrónico</label>
-            <FormKit
-              type="email"
-              name="email"
-              validation="required"
-              placeholder="example@domain.com"
-              :classes="{
+            <FormKit type="email" name="email" placeholder="example@domain.com" validation="required|email"
+              validation-visibility="submit" :validation-messages="{
+                required: 'Este campo es obligatório.',
+                email: 'El correo electrónico no coincide con el estandar.',
+              }" :classes="{
                 input: 'form-control',
                 outer: 'mb-3',
                 label: 'form-label',
                 message: 'form-text text-danger',
-              }"
-            />
+              }" />
           </div>
 
-          <div class="row">
-            <div class="w-50">
-              <label for="password" class="form-label">Contraseña</label>
-              <FormKit
-                type="password"
-                name="password"
-                validation="required|min:8"
-                placeholder="********"
-                :classes="{
-                  input: 'form-control',
-                  outer: 'mb-3',
-                  label: 'form-label',
-                  message: 'form-text text-danger',
-                }"
-              />
-            </div>
-            <div class="w-50">
-              <label for="confirmPassword" class="form-label"
-                >Confirmar Contraseña</label
-              >
-              <FormKit
-                type="password"
-                name="confirmPassword"
-                validation="required|min:8"
-                placeholder="********"
-                :classes="{
-                  input: 'form-control',
-                  outer: 'mb-3',
-                  label: 'form-label',
-                  message: 'form-text text-danger',
-                }"
-              />
-            </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <FormKit type="password" name="password" placeholder="********" validation="required|length:8"
+              validation-visibility="submit" :validation-messages="{
+                required: 'Este campo es obligatório.',
+                length: 'Debe la contraseña debe tener mínimo 8 caracteres'
+              }" :classes="{
+                input: 'form-control',
+                outer: 'mb-3',
+                label: 'form-label',
+                message: 'form-text text-danger',
+              }" />
           </div>
 
           <button type="submit" class="btn btn-primary w-100">

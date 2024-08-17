@@ -1,6 +1,7 @@
 <script>
 import axios from "@/config/axios";
 import link from "../constants/links";
+import links from "../constants/links";
 
 export default {
   data() {
@@ -13,8 +14,14 @@ export default {
       console.log(data);
       axios
         .post("/login", data)
-        .then(({ data }) => localStorage.setItem("token", data.token))
-        .catch((data) => console.log(data));
+        .then(({ data }) => {
+          localStorage.setItem("token", data.token);
+          this.$router.push(links.HOME);
+        })
+        .catch((err) => {
+          alert(err.response.data)
+          console.log(err)
+        });
     },
   },
 };
@@ -39,6 +46,9 @@ export default {
               type="email"
               name="email"
               validation="required"
+              :validation-messages="{
+                required: 'Este campo es obligatório.',
+              }"
               placeholder="example@domain.com"
               :classes="{
                 input: 'form-control',
@@ -54,7 +64,10 @@ export default {
             <FormKit
               type="password"
               name="password"
-              validation="required|min:8"
+              validation="required"
+              :validation-messages="{
+                required: 'Este campo es obligatório.',
+              }"
               placeholder="********"
               :classes="{
                 input: 'form-control',

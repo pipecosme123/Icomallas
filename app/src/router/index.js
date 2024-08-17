@@ -1,11 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import links from "../constants/links";
 
-// const isAuthenticated = () => {
-//   // Reemplaza esto con la lógica real de autenticación
-//   return !!localStorage.getItem('authToken');
-// };
-
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -22,22 +17,13 @@ const router = createRouter({
     {
       path: "/home",
       name: links.HOME,
-      component: () => import("@/components/Home.vue"),
-      // meta: {
-      //   requiresAuth: true
-      // }
+      component: () => import("@/components/Home.vue")
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      redirect: { name: links.LOGIN }
     }
   ]
-})
-
-// router.beforeEach((to, from, next) => {
-//   // Si la ruta requiere autenticación y el usuario no está autenticado, redirigir a login
-//   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated()) {
-//     next('/login');
-//   } else {
-//     next();
-//   }
-// });
-
+});
 
 export default router

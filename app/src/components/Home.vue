@@ -1,11 +1,16 @@
 <script>
-import axios from "@/config/axios";
-import { formatoFecha } from "@/helpers/formatDate";
 import { ref } from "vue";
+
+import axios from "@/config/axios";
+import links from "@/constants/links";
+import router from "@/router";
+import { formatoFecha } from "@/helpers/formatDate";
 
 const clientes = ref([]);
 const showForm = ref(false);
 const editarData = ref({});
+
+// const router = useRoute();
 
 export default {
   data() {
@@ -63,6 +68,10 @@ export default {
           .catch((err) => console.log(err));
       }
     },
+    cerrarSesión(){
+      localStorage.removeItem('token');
+      this.$router.push(links.LOGIN);
+    }
   },
 };
 </script>
@@ -76,7 +85,7 @@ export default {
         class="btn btn-outline-danger"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
-        v-on:click="mostrarForm"
+        v-on:click="cerrarSesión"
       >
         Cerrar Sesión
       </button>
